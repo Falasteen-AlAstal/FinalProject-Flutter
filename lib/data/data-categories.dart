@@ -1,6 +1,6 @@
 import 'package:flutter_final_project/models/categories.dart';
 
-class DataCategories {
+/*class DataCategories {
   static List<Categories> MyCategories = [
     Categories(name: "Burger", quantity: "(100)", image: "images/burger.png"),
     Categories(
@@ -15,4 +15,4 @@ class DataCategories {
         quantity: "(150)",
         image: "images/soft-drinks.png"),
   ];
-}
+}*/

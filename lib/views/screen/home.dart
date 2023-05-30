@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_final_project/bottom_nav_bar.dart';
 import 'package:flutter_final_project/data/data-categories.dart';
 import 'package:flutter_final_project/widgets/widgetCategories.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+import '../../controllers/meals_proovider.dart';
+import '../../models/categories.dart';
+import '../../models/fb_helper.dart';
+
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  void navigateBottomBar(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text("Hi, Falasteen!"),
+            child: Text("Hello, Everyone !"),
           ),
           const SizedBox(
             height: 6,
@@ -78,11 +71,27 @@ class _HomePageState extends State<HomePage> {
             height: 10,
           ),
           Expanded(
-              child: ListView.builder(
-                  itemCount: DataCategories.MyCategories.length,
-                  itemBuilder: (context, index) {
-                    return CategoriesTile(DataCategories.MyCategories[index]);
-                  }))
+            child: Consumer<MealsProvider>(
+              builder: (context, mealsProvider, _) {
+                if (mealsProvider.categories == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (mealsProvider.categories!.isEmpty) {
+                  return Center(
+                    child: Text('No categories available.'),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: mealsProvider.categories!.length,
+                    itemBuilder: (context, index) {
+                      return CategoriesTile(mealsProvider.categories![index]);
+                    },
+                  );
+                }
+              },
+            ),
+          )
         ],
       )),
     );

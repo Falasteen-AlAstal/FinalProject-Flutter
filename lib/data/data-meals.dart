@@ -1,6 +1,6 @@
 import 'package:flutter_final_project/models/mod-meals.dart';
 
-class DataMeals {
+/*class DataMeals {
   static List<Meals> MyBurger = [
     Meals(name: "Burger", price: "10£", image: "images/burger.png"),
     Meals(name: "Burger", price: "20£", image: "images/burger.png"),
@@ -29,4 +29,4 @@ class DataMeals {
   ];
 
   static List<Meals> cartItems = [];
-}
+}*/

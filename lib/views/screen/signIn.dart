@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_final_project/views/screen/home.dart';
 import 'package:flutter_final_project/views/screen/home_page.dart';
 import 'package:flutter_final_project/views/screen/registration.dart';
+import 'package:provider/provider.dart';
 
-class signInPage extends StatefulWidget {
+import '../../controllers/meals_proovider.dart';
+import '../../models/fb_helper.dart';
+
+class signInPage extends StatelessWidget {
   const signInPage({Key? key}) : super(key: key);
 
-  @override
-  State<signInPage> createState() => _signInPageState();
-}
-
-class _signInPageState extends State<signInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +53,9 @@ class _signInPageState extends State<signInPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: TextField(
+                      controller:
+                          Provider.of<MealsProvider>(context, listen: false)
+                              .emailController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Email")),
                 ),
@@ -73,6 +75,9 @@ class _signInPageState extends State<signInPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: TextField(
+                      controller:
+                          Provider.of<MealsProvider>(context, listen: false)
+                              .passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "password")),
@@ -89,10 +94,7 @@ class _signInPageState extends State<signInPage> {
             Center(
                 child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return HomePages();
-                }));
+                FbHelper.fbHelper.signInWithEmailAndPassword(context);
               },
               child: Text(
                 "sign in",

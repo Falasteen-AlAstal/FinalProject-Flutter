@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../controllers/meals_proovider.dart';
 import 'account.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -68,7 +70,10 @@ class ProfilePage extends StatelessWidget {
               leading: Icon(Icons.logout),
               trailing: IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<MealsProvider>(context, listen: false)
+                      .signOut(context);
+                },
               ),
             ),
           ),

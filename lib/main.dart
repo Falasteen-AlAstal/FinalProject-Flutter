@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/models/fb_helper.dart';
 import 'package:flutter_final_project/views/screen/account.dart';
 import 'package:flutter_final_project/views/screen/details.dart';
+import 'package:flutter_final_project/views/screen/home_page.dart';
 import 'package:flutter_final_project/views/screen/profile.dart';
 import 'package:flutter_final_project/views/screen/registration.dart';
 import 'package:flutter_final_project/views/screen/signIn.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'controllers/meals_proovider.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: RegistrationPage(),
-    );
-  }
+  MealsProvider mealsProvider = MealsProvider();
+  mealsProvider.isUserLoggedIn();
+
+  runApp(ChangeNotifierProvider<MealsProvider>(
+    create: (context) {
+      return MealsProvider();
+    },
+    child: MaterialApp(
+      home: mealsProvider.isLoggedIn ? HomePages() : signInPage(),
+    ),
+  ));
 }

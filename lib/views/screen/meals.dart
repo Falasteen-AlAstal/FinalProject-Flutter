@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/data/data-meals.dart';
 import 'package:flutter_final_project/widgets/widgetMeals.dart';
+import 'package:provider/provider.dart';
 
+import '../../controllers/meals_proovider.dart';
 import '../../models/categories.dart';
 import '../../models/mod-meals.dart';
 
 class MealsPage extends StatelessWidget {
   final String name;
-  const MealsPage({Key? key, required this.name}) : super(key: key);
+  final List<Meals> meals;
+  const MealsPage({Key? key, required this.name, required this.meals})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Categories categories = Categories(name: name, image: '', quantity: '');
+    //Categories categories = Categories(name: name, image: '', quantity: '');
     // String message = "how would you like your ${name}";
-    final foods = getFoodsByCategory(categories);
+    // final foods = getFoodsByCategory(categories);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -53,9 +57,9 @@ class MealsPage extends StatelessWidget {
           ),
           Expanded(
               child: ListView.builder(
-                  itemCount: foods.length,
+                  itemCount: meals.length,
                   itemBuilder: (context, index) {
-                    return mealsTile(foods[index]);
+                    return mealsTile(meals[index]);
                   }))
         ],
       )),
@@ -63,7 +67,7 @@ class MealsPage extends StatelessWidget {
   }
 }
 
-List<Meals> getFoodsByCategory(Categories? categories) {
+/*List<Meals> getFoodsByCategory(Categories? categories) {
   final List<Meals> foods = [];
   if (categories?.name == "Pizza") {
     foods.addAll([
@@ -113,4 +117,4 @@ List<Meals> getFoodsByCategory(Categories? categories) {
   }
 
   return foods;
-}
+}*/

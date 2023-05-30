@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/models/mod-meals.dart';
+import 'package:provider/provider.dart';
 
+import '../../controllers/meals_proovider.dart';
 import '../../data/data-meals.dart';
+import '../../models/fb_helper.dart';
 
 class DetailePage extends StatelessWidget {
   final Meals meals;
@@ -31,7 +35,7 @@ class DetailePage extends StatelessWidget {
         SizedBox(height: 15.0),
         Padding(
           padding: EdgeInsets.only(left: 20.0),
-          child: Text(meals.name,
+          child: Text(meals.name!,
               style: TextStyle(
                   fontFamily: 'Varela',
                   fontSize: 42.0,
@@ -40,12 +44,18 @@ class DetailePage extends StatelessWidget {
         ),
         SizedBox(height: 100.0),
         Hero(
-            tag: meals.image,
-            child: Image.asset(meals.image,
-                height: 150.0, width: 100.0, fit: BoxFit.contain)),
+          tag: meals.image!,
+          child: CachedNetworkImage(
+              imageUrl: meals.image!,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              height: 150.0,
+              width: 100.0,
+              fit: BoxFit.contain),
+        ),
         SizedBox(height: 20.0),
         Center(
-          child: Text(meals.price,
+          child: Text(meals.price!,
               style: TextStyle(
                   fontFamily: 'Varela',
                   fontSize: 22.0,
@@ -54,7 +64,7 @@ class DetailePage extends StatelessWidget {
         ),
         SizedBox(height: 10.0),
         Center(
-          child: Text(meals.name,
+          child: Text(meals.name!,
               style: TextStyle(
                   color: Color(0xFF575E67),
                   fontFamily: 'Varela',
@@ -67,7 +77,10 @@ class DetailePage extends StatelessWidget {
                   fixedSize: MaterialStatePropertyAll(Size(200, 50)),
                   backgroundColor: MaterialStatePropertyAll(Colors.deepOrange)),
               onPressed: () {
-                DataMeals.cartItems.add(meals);
+                //DataMeals.cartItems.add(meals);
+                // FbHelper.fbHelper.addToCart(meals);
+                Provider.of<MealsProvider>(context, listen: false)
+                    .addToCart(meals);
               },
               child: Text(
                 'Add to cart',
