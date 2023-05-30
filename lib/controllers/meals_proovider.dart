@@ -88,18 +88,18 @@ class MealsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Function to create a new account using FbHelper
+  // Function to create a new account
   /* void createNewAccount(BuildContext context) async {
     await fbHelper.createNewAccount(context);
   }*/
 
-  // Function to add user to database using FbHelper
+  // Function to add user
   void addUserToDB(String id, String name, String email, String phone,
       String password, String address) async {
     await fbHelper.addUserToDB(id, name, email, phone, password, address);
   }
 
-  // Function to sign in with email and password using FbHelper
+  // Function to sign in
   /*void signInWithEmailAndPassword(BuildContext context) async {
     await fbHelper.signInWithEmailAndPassword(context);
   }*/

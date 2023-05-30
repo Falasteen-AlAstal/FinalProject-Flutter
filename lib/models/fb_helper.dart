@@ -62,46 +62,6 @@ class FbHelper {
     }
   }
 
-  /*
-
-void createNewAccount(
-  String email,
-  String password,
-  String name,
-  String phone,
-  String address,
-) async {
-  try {
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
-    User? user = userCredential.user;
-    if (user != null) {
-      await addUserToDB(
-        user.uid,
-        name,
-        email,
-        phone,
-        password,
-        address,
-      );
-
-    
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => signInPage()),
-      );
-    }
-  } catch (e) {
-    print('$e');
-  
-  }
-}
-
-  */
-
 // fun addUserToDB
   Future<void> addUserToDB(String id, String name, String email, String phone,
       String password, String address) async {
